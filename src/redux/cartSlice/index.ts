@@ -34,6 +34,9 @@ export const cartSlice = createSlice({
     updateCart: (state, action: PayloadAction<ICartState['cartList']>) => {
       state.cartList = action.payload;
     },
+    updateItems: (state, action: PayloadAction<ICartState['items']>) => {
+      state.items = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -51,7 +54,7 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { updateCart } = cartSlice.actions;
+export const { updateCart, updateItems } = cartSlice.actions;
 
 export const getItems = (state: RootState) => state.cart.items;
 export const getItemsStatus = (state: RootState) => state.cart.status;

@@ -1,9 +1,16 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { HomeStyled, HomeWrapperStyled } from './styles';
-import { Items } from './components/Items';
 import { fetchItemsAsync, getItems, getItemsStatus } from '../../redux/cartSlice';
 import { Cart } from './components/Cart';
+import { Items } from './components/Items';
+import { Search } from './components/Search';
+import { HomeStyled, HomeWrapperStyled } from './styles';
+
+const Loading = () => (
+  <div data-testid="el_loading">
+    <p>Loading...</p>
+  </div>
+);
 
 const Home = () => {
   const dispatch = useAppDispatch();
@@ -14,12 +21,6 @@ const Home = () => {
     dispatch(fetchItemsAsync());
   }, []);
 
-  const Loading = () => (
-    <div data-testid="el_loading">
-      <p>Loading...</p>
-    </div>
-  );
-
   return (
     <>
       {status === 'loading' ? (
@@ -27,6 +28,9 @@ const Home = () => {
       ) : (
         <HomeWrapperStyled>
           <h1>Tienda</h1>
+          <section>
+            <Search list={itemList} />
+          </section>
           <HomeStyled>
             <Items list={itemList} />
             <Cart data-testid="cart-component" />

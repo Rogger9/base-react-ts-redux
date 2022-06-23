@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
-import { ItemWrapperStyled, ItemDetailStyled, Button, ContainerStyled } from './styles';
 import { getCart, ICartItem, IItem, updateCart } from '../../../../redux/cartSlice';
+import { Button, ContainerStyled, ItemDetailStyled, ItemWrapperStyled } from './styles';
 
 export type ItemsProps = {
   list: IItem[];
 };
 
-export type ItemWrapperProps = {
-  color: string;
-};
+// export type ItemWrapperProps = {
+//   color: string;
+// };
 
 export const Items: React.FC<ItemsProps> = ({ list: arr }) => {
   const dispatch = useAppDispatch();
@@ -34,8 +34,8 @@ export const Items: React.FC<ItemsProps> = ({ list: arr }) => {
 
   return (
     <ContainerStyled data-testid="container-item">
-      {list.map((item, i) => (
-        <ItemWrapperStyled key={i} color="white">
+      {list.map((item) => (
+        <ItemWrapperStyled key={item.id}>
           <ItemDetailStyled>
             {item.name} (${item.price})
           </ItemDetailStyled>

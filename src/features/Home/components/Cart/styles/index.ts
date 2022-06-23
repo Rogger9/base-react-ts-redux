@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
 export const CartWrapperStyled = styled.div`
-  height: 500px;
-  overflow: auto;
-  width: fit-content;
+  /* height: 500px; */
+  /* overflow: auto;
+  width: fit-content; */
+  width: 400px;
   background-color: rgba(50, 50, 50, 0.2);
-  padding: 0 10px;
+  padding: 10px;
   border-radius: 5px;
   border: 1px solid grey;
 `;

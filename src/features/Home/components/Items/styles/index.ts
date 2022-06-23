@@ -1,15 +1,20 @@
 /* istanbul ignore file */
 import styled from 'styled-components';
-import { ItemWrapperProps } from '..';
+// import { ItemWrapperProps } from '..';
 
 export const ContainerStyled = styled.div`
-  display: block;
+  /* display: block; */
   background-color: white;
+  width: 400px;
+  height: fit-content;
+  border-radius: 5px;
+  /* overflow: hidden; */
 `;
 
-export const ItemWrapperStyled = styled.div<ItemWrapperProps>`
+//Delete props
+export const ItemWrapperStyled = styled.div`
   padding: 5px;
-  background-color: ${(props) => props.color};
+  /* background-color: ${(props) => props.color}; */
 `;
 
 export const ItemDetailStyled = styled.div`
@@ -20,4 +25,5 @@ export const ItemDetailStyled = styled.div`
 export const Button = styled.button`
   padding: 5px;
   margin: 0 10px;
+  cursor: pointer;
 `;

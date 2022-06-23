@@ -1,5 +1,5 @@
 import { waitFor } from '@testing-library/react';
-import { fetchItemsAsync, getCart, getItems, getItemsStatus, updateCart } from '..';
+import { fetchItemsAsync, getCart, getItems, getItemsStatus, updateCart, updateItems } from '..';
 import { fetchItems as fetched } from '../../../api/fetchItems';
 import { store } from '../../../app/store';
 import { cartItems } from '../../../__mock__/cartItems';
@@ -40,5 +40,12 @@ describe('Cart Reducer', () => {
     const firstItem = [{ id: 1, name: 'item1', price: 100, quantity: 1 }];
     store.dispatch(updateCart(firstItem));
     expect(getCart(store.getState())).toHaveLength(1);
+  });
+
+  test('updateItems function on success', () => {
+    const filteredItems = [{ id: 1, name: 'item1', price: 100 }];
+    store.dispatch(updateItems(filteredItems));
+    const items = getItems(store.getState());
+    expect(items).toHaveLength(filteredItems.length);
   });
 });
