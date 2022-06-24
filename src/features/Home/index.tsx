@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { fetchItemsAsync, getItems, getItemsStatus } from '../../redux/cartSlice';
 import { Cart } from './components/Cart';
+import { Filter } from './components/Filter';
 import { Items } from './components/Items';
 import { Search } from './components/Search';
 import { HomeStyled, HomeWrapperStyled } from './styles';
@@ -30,6 +31,7 @@ const Home = () => {
           <h1>Tienda</h1>
           <section>
             <Search />
+            <Filter />
           </section>
           <HomeStyled>
             <Items list={itemList} />

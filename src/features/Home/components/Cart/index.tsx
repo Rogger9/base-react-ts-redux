@@ -30,7 +30,7 @@ export const Cart = () => {
       }
     });
 
-    const newItems = itemsList.map((el) =>
+    const newItems = itemsList?.map((el) =>
       el.id === item.id ? { ...el, stock: el.stock + 1 } : el
     );
 
@@ -45,7 +45,7 @@ export const Cart = () => {
 
   return (
     <CartWrapperStyled data-testid="cart-item">
-      {!cartItems.length && <span>Carrito Vacío</span>}
+      {!cartItems.length && <span>Carrito vacío</span>}
       <div data-testid="cart-items-list">
         {cartItems.map((item) => (
           <CartItemWrapperStyled key={item.id}>
