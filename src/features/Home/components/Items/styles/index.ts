@@ -2,10 +2,14 @@
 import styled from 'styled-components';
 // import { ItemWrapperProps } from '..';
 
+type IItemDetailProps = {
+  amount: number;
+};
+
 export const ContainerStyled = styled.div`
   /* display: block; */
   background-color: white;
-  width: 400px;
+  min-width: 400px;
   height: fit-content;
   border-radius: 5px;
   /* overflow: hidden; */
@@ -13,17 +17,22 @@ export const ContainerStyled = styled.div`
 
 //Delete props
 export const ItemWrapperStyled = styled.div`
-  padding: 5px;
-  /* background-color: ${(props) => props.color}; */
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+  user-select: none;
 `;
 
-export const ItemDetailStyled = styled.div`
-  display: inline-flex;
-  height: 30px;
-`;
+export const ItemDetailStyled = styled.div<IItemDetailProps>`
+  display: flex;
+  align-items: center;
+  gap: 8px;
 
-export const Button = styled.button`
-  padding: 5px;
-  margin: 0 10px;
-  cursor: pointer;
+  > p {
+    margin: 0;
+  }
+
+  > span {
+    color: ${({ amount }) => (amount > 0 ? 'green' : 'red')};
+  }
 `;

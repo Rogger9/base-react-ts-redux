@@ -1,13 +1,15 @@
 import { Items } from '..';
-import { render, fireEvent, screen, waitFor } from '../../../../../utils/testing/reduxRender';
-import { cartItems } from '../../../../../__mock__/cartItems';
 import * as cartSlice from '../../../../../redux/cartSlice';
+import { fireEvent, render, screen } from '../../../../../utils/testing/reduxRender';
+import { cartItems } from '../../../../../__mock__/cartItems';
 
 describe('Items Component Render', () => {
   test('Should display an empty view', () => {
     render(<Items list={[]} />);
-    const itemsComponent = screen.getByTestId('container-item');
-    expect(itemsComponent.childElementCount).toBe(0);
+    // const itemsComponent = screen.getByTestId('container-item');
+    // expect(itemsComponent.childElementCount).toBe(0);
+    const text = screen.getByText('No hay ítems para mostrar');
+    expect(text).toBeInTheDocument();
   });
 
   test('Should display items', () => {
@@ -18,6 +20,7 @@ describe('Items Component Render', () => {
 
   test('Should add an Item to Cart', async () => {
     const updateCart = jest.spyOn(cartSlice, 'updateCart');
+    const updateItems = jest.spyOn(cartSlice, 'updateItems');
 
     render(<Items list={cartItems} />);
     const [firstButton] = screen.getAllByRole('button');
@@ -32,5 +35,7 @@ describe('Items Component Render', () => {
 
     const firstItem2 = [{ ...cartItems[0], quantity: 2 }];
     expect(updateCart).toHaveBeenCalledWith(firstItem2);
+
+    expect(updateItems).toHaveBeenCalled();
   });
 });

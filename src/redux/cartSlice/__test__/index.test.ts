@@ -37,13 +37,13 @@ describe('Cart Reducer', () => {
   });
 
   test('updateCart function should add an Item to Cart', async () => {
-    const firstItem = [{ id: 1, name: 'item1', price: 100, quantity: 1 }];
+    const firstItem = [{ id: 1, name: 'item1', price: 100, quantity: 1, stock: 2 }];
     store.dispatch(updateCart(firstItem));
     expect(getCart(store.getState())).toHaveLength(1);
   });
 
   test('updateItems function on success', () => {
-    const filteredItems = [{ id: 1, name: 'item1', price: 100 }];
+    const filteredItems = [{ id: 1, name: 'item1', price: 100, stock: 4 }];
     store.dispatch(updateItems(filteredItems));
     const items = getItems(store.getState());
     expect(items).toHaveLength(filteredItems.length);

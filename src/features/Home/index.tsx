@@ -29,7 +29,7 @@ const Home = () => {
         <HomeWrapperStyled>
           <h1>Tienda</h1>
           <section>
-            <Search list={itemList} />
+            <Search />
           </section>
           <HomeStyled>
             <Items list={itemList} />

@@ -6,6 +6,7 @@ export interface IItem {
   id: number;
   name: string;
   price: number;
+  stock: number;
 }
 export interface ICartItem extends IItem {
   quantity: number;

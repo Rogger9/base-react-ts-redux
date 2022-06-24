@@ -1,15 +1,11 @@
 import debounce from 'lodash.debounce';
-import { useState } from 'react';
 import { useAppDispatch } from '../../../../app/hooks';
-import { IItem, updateItems } from '../../../../redux/cartSlice';
+import { updateItems } from '../../../../redux/cartSlice';
+import { cartItems } from '../../../../__mock__/cartItems';
 import { SearchStyled } from './styles';
 
-export type ISearchProps = {
-  list: IItem[];
-};
-
-export const Search = ({ list }: ISearchProps) => {
-  const [itemsList] = useState<IItem[]>(list);
+export const Search = () => {
+  // const [itemsList] = useState<IItem[]>(list);
   const dispatch = useAppDispatch();
 
   // useEffect(() => {
@@ -17,8 +13,11 @@ export const Search = ({ list }: ISearchProps) => {
   // }, []);
 
   const searchItems = debounce((keyboard: string) => {
-    const result = itemsList.filter((item) => item.name.includes(keyboard));
-    return dispatch(updateItems(result));
+    // if (!keyboard) {
+    //   //Clear cart
+    // }
+    const result = cartItems.filter((item) => item.name.includes(keyboard));
+    dispatch(updateItems(result));
   }, 300);
 
   return (
@@ -27,7 +26,7 @@ export const Search = ({ list }: ISearchProps) => {
         type="search"
         name="search"
         id="search"
-        placeholder="Search item..."
+        placeholder="Buscar item..."
         onChange={(e) => searchItems(e.target.value)}
         data-testid="search-item-input"
       />

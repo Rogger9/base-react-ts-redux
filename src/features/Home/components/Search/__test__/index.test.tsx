@@ -1,10 +1,9 @@
 import { Search } from '..';
 import { fireEvent, render, screen, waitFor } from '../../../../../utils/testing/reduxRender';
-import { cartItems } from '../../../../../__mock__/cartItems';
 
 describe('Search component render', () => {
   test('Should display a input', () => {
-    render(<Search list={cartItems} />);
+    render(<Search />);
     const label = screen.getByTestId('search-item');
     expect(label).toBeInTheDocument();
   });
@@ -14,7 +13,7 @@ describe('Search component render', () => {
     jest.useFakeTimers();
     const mockChange = jest.fn();
 
-    render(<Search list={cartItems} />);
+    render(<Search />);
 
     const input = screen.getByTestId('search-item-input');
     input.onchange = mockChange;
