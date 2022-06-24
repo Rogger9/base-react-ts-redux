@@ -1,11 +1,19 @@
-import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
-import { getCart, ICartItem, updateCart } from '../../../../redux/cartSlice';
+import {
+  fetchItemsAsync,
+  getCart,
+  getItems,
+  ICartItem,
+  updateCart,
+  updateItems,
+} from '../../../../redux/cartSlice';
+import { ButtonStyled } from '../../styles';
 import { CartItemStyled, CartItemWrapperStyled, CartWrapperStyled, DeleteIcon } from './styles';
 
 export const Cart = () => {
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector(getCart);
+  const itemsList = useAppSelector(getItems);
 
   const getTotal = (list) => {
     const total = list.reduce((current, next) => current + next.price * next.quantity, 0);
@@ -22,15 +30,25 @@ export const Cart = () => {
       }
     });
 
+    const newItems = itemsList.map((el) =>
+      el.id === item.id ? { ...el, stock: el.stock + 1 } : el
+    );
+
     dispatch(updateCart(tempNewCart));
+    dispatch(updateItems(newItems));
+  };
+
+  const clearCart = () => {
+    dispatch(updateCart([]));
+    dispatch(fetchItemsAsync());
   };
 
   return (
     <CartWrapperStyled data-testid="cart-item">
-      {cartItems.length === 0 && <CartItemStyled>Carrito Vacío</CartItemStyled>}
+      {!cartItems.length && <span>Carrito Vacío</span>}
       <div data-testid="cart-items-list">
-        {cartItems.map((item, i) => (
-          <CartItemWrapperStyled key={i}>
+        {cartItems.map((item) => (
+          <CartItemWrapperStyled key={item.id}>
             <CartItemStyled>
               <p>
                 {item.name} x {item.quantity} = {item.quantity * item.price}
@@ -45,6 +63,7 @@ export const Cart = () => {
         <span>Total: </span>
         <b>{getTotal(cartItems)}</b>
       </p>
+      {cartItems.length > 0 && <ButtonStyled onClick={clearCart}>Vaciar carrito</ButtonStyled>}
     </CartWrapperStyled>
   );
 };
