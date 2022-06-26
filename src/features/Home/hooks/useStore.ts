@@ -11,8 +11,7 @@ import {
   updateCart,
   updateItems,
 } from '../../../redux/cartSlice';
-import { cartItems } from '../../../__mock__/cartItems';
-import { filterItems } from '../utils/filterItems';
+import { getSearch, updateSearch } from '../../../redux/searchSlice';
 import { getSortedItems } from '../utils/getSortedItems';
 import { updateQuantity } from '../utils/updateQuantity';
 import { updateStock } from '../utils/updateStock';
@@ -22,6 +21,7 @@ export const useStore = () => {
   const itemList = useAppSelector(getItems);
   const cartList = useAppSelector(getCart);
   const dispatch = useAppDispatch();
+  const search = useAppSelector(getSearch);
 
   const getItemsList = () => dispatch(fetchItemsAsync());
 
@@ -62,9 +62,8 @@ export const useStore = () => {
     dispatch(updateItems(newItems));
   };
 
-  const searchItems = debounce((keyboard: string) => {
-    const result = filterItems(cartItems, keyboard);
-    dispatch(updateItems(result));
+  const searchItems = debounce((value: string) => {
+    dispatch(updateSearch(value));
   }, 300);
 
   return {
@@ -76,6 +75,7 @@ export const useStore = () => {
     clearCart,
     sortItems,
     onAddItemToCart,
+    search,
     searchItems,
   };
 };

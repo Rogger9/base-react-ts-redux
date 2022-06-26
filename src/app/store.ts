@@ -1,10 +1,12 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 
 import CartReducer from '../redux/cartSlice';
+import SearchReducer from '../redux/searchSlice';
 import { RecursivePartial } from '../utils/recursivePartialType';
 
 export const rootReducer = {
   cart: CartReducer,
+  search: SearchReducer,
 };
 
 export const store = configureStore({

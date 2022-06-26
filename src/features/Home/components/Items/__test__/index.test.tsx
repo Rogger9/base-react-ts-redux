@@ -36,4 +36,10 @@ describe('Items Component Render', () => {
 
     expect(updateItems).toHaveBeenCalled();
   });
+
+  test('Render by search', () => {
+    render(<Items list={cartItems} />, { initialState: { search: { name: '1' } } });
+    const itemsComponent = screen.getByTestId('container-item');
+    expect(itemsComponent.childElementCount).toBe(1);
+  });
 });

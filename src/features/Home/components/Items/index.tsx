@@ -1,6 +1,7 @@
 import { IItem } from '../../../../redux/cartSlice';
 import { useStore } from '../../hooks/useStore';
 import { ButtonStyled } from '../../styles';
+import { filterItems } from '../../utils/filterItems';
 import { showStock } from '../../utils/showStock';
 import { ContainerStyled, ItemDetailStyled, ItemWrapperStyled } from './styles';
 
@@ -9,13 +10,17 @@ export type IItemsProps = {
 };
 
 export const Items = ({ list }: IItemsProps) => {
-  const { onAddItemToCart } = useStore();
+  const { search, onAddItemToCart } = useStore();
 
-  if (!list.length) return <span>No hay ítems para mostrar</span>;
+  const filteredList = filterItems(list, search);
+
+  const listToRender = search ? filteredList : list;
+
+  if (!listToRender.length) return <span>No hay ítems para mostrar</span>;
 
   return (
     <ContainerStyled data-testid="container-item">
-      {list.map((item) => (
+      {listToRender.map((item) => (
         <ItemWrapperStyled key={item.id}>
           <ItemDetailStyled amount={item.stock}>
             <p>
