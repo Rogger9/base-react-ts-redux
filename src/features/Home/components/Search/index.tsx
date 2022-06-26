@@ -1,24 +1,8 @@
-import debounce from 'lodash.debounce';
-import { useAppDispatch } from '../../../../app/hooks';
-import { updateItems } from '../../../../redux/cartSlice';
-import { cartItems } from '../../../../__mock__/cartItems';
+import { useStore } from '../../hooks/useStore';
 import { SearchStyled } from './styles';
 
 export const Search = () => {
-  // const [itemsList] = useState<IItem[]>(list);
-  const dispatch = useAppDispatch();
-
-  // useEffect(() => {
-  //   setItemsList(list);
-  // }, []);
-
-  const searchItems = debounce((keyboard: string) => {
-    // if (!keyboard) {
-    //   //Clear cart
-    // }
-    const result = cartItems.filter((item) => item.name.includes(keyboard));
-    dispatch(updateItems(result));
-  }, 300);
+  const { searchItems } = useStore();
 
   return (
     <SearchStyled htmlFor="search" data-testid="search-item">

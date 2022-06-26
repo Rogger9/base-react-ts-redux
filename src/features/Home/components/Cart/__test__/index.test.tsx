@@ -1,5 +1,6 @@
 import { Cart } from '..';
-import { fireEvent, render, screen, waitFor } from '../../../../../utils/testing/reduxRender';
+import * as cartSlice from '../../../../../redux/cartSlice';
+import { fireEvent, render, screen } from '../../../../../utils/testing/reduxRender';
 
 describe('Cart Render', () => {
   const component = <Cart />;
@@ -7,7 +8,7 @@ describe('Cart Render', () => {
     cart: {
       cartList: [
         { id: 1, name: 'ítem1', price: 100, quantity: 1 },
-        { id: 2, name: 'ítem2', price: 200, quantity: 1 },
+        { id: 2, name: 'ítem2', price: 200, quantity: 4 },
       ],
     },
   };
@@ -20,22 +21,23 @@ describe('Cart Render', () => {
   });
 
   test('Should remove item from Cart', () => {
+    const updateCart = jest.spyOn(cartSlice, 'updateCart');
     render(component, { initialState });
-    const items = screen.getByTestId('cart-items-list');
-    expect(items.childElementCount).toBe(2);
-
-    const [secondButton] = screen.getAllByRole('button');
-    fireEvent.click(secondButton);
-    expect(items.childElementCount).toBe(1);
+    const [buttonFirstItem, buttonSecondItem] = screen.getAllByRole('button');
+    fireEvent.click(buttonFirstItem);
+    expect(updateCart).toHaveBeenCalled();
+    fireEvent.click(buttonSecondItem);
+    expect(updateCart).toHaveBeenCalled();
   });
 
-  test('Should clear Cart', async () => {
+  test('Should clear Cart', () => {
+    const resetCart = jest.spyOn(cartSlice, 'resetCart');
+    const fetchItemsAsync = jest.spyOn(cartSlice, 'fetchItemsAsync');
+
     render(component, { initialState });
     const button = screen.getByText('Vaciar carrito');
     fireEvent.click(button);
-    await waitFor(() => {
-      const itemsLits = screen.getByTestId('cart-items-list');
-      expect(itemsLits.childElementCount).toBe(0);
-    });
+    expect(resetCart).toHaveBeenCalled();
+    expect(fetchItemsAsync).toHaveBeenCalled();
   });
 });

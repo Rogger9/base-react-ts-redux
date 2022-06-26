@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { fetchItemsAsync, getItems, getItemsStatus } from '../../redux/cartSlice';
 import { Cart } from './components/Cart';
 import { Filter } from './components/Filter';
 import { Items } from './components/Items';
 import { Search } from './components/Search';
+import { useStore } from './hooks/useStore';
 import { HomeStyled, HomeWrapperStyled } from './styles';
 
 const Loading = () => (
@@ -14,12 +13,10 @@ const Loading = () => (
 );
 
 const Home = () => {
-  const dispatch = useAppDispatch();
-  const itemList = useAppSelector(getItems);
-  const status = useAppSelector(getItemsStatus);
+  const { itemList, status, getItemsList } = useStore();
 
   useEffect(() => {
-    dispatch(fetchItemsAsync());
+    getItemsList();
   }, []);
 
   return (

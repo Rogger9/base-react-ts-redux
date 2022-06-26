@@ -6,8 +6,6 @@ import { cartItems } from '../../../../../__mock__/cartItems';
 describe('Items Component Render', () => {
   test('Should display an empty view', () => {
     render(<Items list={[]} />);
-    // const itemsComponent = screen.getByTestId('container-item');
-    // expect(itemsComponent.childElementCount).toBe(0);
     const text = screen.getByText('No hay ítems para mostrar');
     expect(text).toBeInTheDocument();
   });
